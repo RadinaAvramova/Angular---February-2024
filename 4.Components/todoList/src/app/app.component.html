@@ -1,0 +1,52 @@
+<div class="container">
+
+  <form>
+    <div class="input-group">
+      <input type="text" class="form-control" name="new-task-text" [(ngModel)]="newTaskText">
+      <div class="col-auto">
+        <button class="btn btn-primary" type="submit"
+        (click)="$event.preventDefault(); addNewTask()"
+        >
+        Add task</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="row mt-4">
+    <div class="col-sm-4">
+      <select class="form-select"
+      [(ngModel)]="listFilter"
+      >
+        <option value="0">All</option>
+        <option value="1">Unfulfilled</option>
+        <option value="2">Fulfilled</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div *ngIf="visibleItemsCopy.length === 0; then noTasks else showTasks">
+    </div>
+    
+    <ng-template #noTasks>There are no tasks to display.</ng-template>
+    
+    <ng-template #showTasks>
+      <ul class="task-list">
+        <li *ngFor="let item of visibleItemsCopy; index as i">
+        <div class="form-check">
+          <label class="form-check-label">
+            <input class="checkbox" type="checkbox" [checked]="item.isComplete"
+            [attr.data-index]="i"
+            (click)="toggleItem(item)"
+            > {{ item.taskText }}
+          </label>
+        </div>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+
+</div>
+
+
+  
