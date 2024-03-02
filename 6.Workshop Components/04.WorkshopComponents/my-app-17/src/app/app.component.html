@@ -1,0 +1,80 @@
+<div>{{title}}</div>
+<br>
+<hr>
+<br>
+<ul>
+  @for (task of tasks;track task.id){
+  @if (task.status === 'inProgress'){
+  <li style="border: 1px solid blue">{{task.name}} - {{task.status}}</li>
+
+  }
+  @else if (task.status === 'todo'){
+  <li style="border: 1px solid red">{{task.name}} - {{task.status}}</li>
+
+  }@else {
+  <li style="border: 1px solid green">{{task.name}} - {{task.status}}</li>
+
+  }
+  }
+</ul>
+<br>
+<hr>
+<br>
+
+<div>
+  @for (task of tasks;track task.id){
+  <div>{{task.name}}</div>
+  } @empty {
+  <div>Sorry, This collection is empty :(</div>
+  }
+</div>
+
+<div *ngFor="let task of tasks">
+  <h2>{{task.name}}</h2>
+</div>
+<br>
+<hr>
+<br>
+
+
+<div>
+  @for (task of tasks;track task.id){
+  @switch (task.status) {
+  @case ('todo') {
+  <p style="border: 3px solid green">{{task.status}}</p>
+  }
+  @case ('inProgress') {
+  <p style="border: 3px solid blueviolet">{{task.status}}</p>
+  }
+  @default {
+  <p style="border: 3px solid palevioletred">{{task.status}}</p>
+  }
+  }}
+</div>
+<br>
+<hr>
+<br>
+<app-home-test />
+<br>
+<hr>
+<br>
+<div>
+  @defer(on viewport){
+    <div>
+    Deferred view!
+  </div>}
+  @loading(minimum 300ms) { 
+    <div>
+    Loading...
+  </div> }
+  @placeholder(minimum 300ms) {
+    <div>
+    Placeholder!
+  </div>}
+  @error {
+    <div>
+    Error!
+  </div>}
+
+</div>
+<router-outlet />
