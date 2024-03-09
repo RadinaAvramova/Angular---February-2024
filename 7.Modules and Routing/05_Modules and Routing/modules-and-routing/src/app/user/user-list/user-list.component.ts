@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { User } from 'src/app/types/user';
 import { GlobalLoaderService } from 'src/app/core/global-loader/global-loader.service';
@@ -8,9 +8,11 @@ import { GlobalLoaderService } from 'src/app/core/global-loader/global-loader.se
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   isLoading = false;
   users: User[] = [];
+  // counter = 0;
+  interval: any;
 
   constructor(
     private userService: UserService,
@@ -19,6 +21,17 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchUsers();
+
+    // this.interval = setInterval(() => {
+    //   this.counter += 1;
+    //   console.log(this.counter);
+    // }, 2000);
+  }
+
+  ngOnDestroy(): void {
+    //to clear data!
+    console.log('On Destroy invoked!');
+    clearInterval(this.interval);
   }
 
   fetchUsers() {
